@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11100f">
+  <meta name="description" content="ليلة المافيا — اجمع أصدقاءك، أخفِ هويتك، واكتشف من يخدع المدينة في لعبة مافيا عربية جماعية أونلاين.">
+  <title>ليلة المافيا — من يثق بمن؟</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="ليلة المافيا — الصفحة الرئيسية"><span class="brand-mark">م</span><span>لَيْلَة <b>المافيا</b></span></a>
+    <div class="top-note"><span class="live-dot"></span> لعبة جماعية مباشرة</div>
+    <a class="top-link" href="#how">كيف نلعب؟ <span>↙</span></a>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> لعبة الخداع والثقة <span class="eyebrow-line"></span></div>
+        <h1>في هذه المدينة،<br>لا أحد <em>بريء.</em></h1>
+        <p class="hero-desc">وجوه مألوفة. أسرار خطيرة. وكل كلمة قد تكون الأخيرة.<br>اجمع جماعتك واكتشف من يختبئ بينكم.</p>
+        <div class="hero-actions">
+          <button class="button button-gold" id="hero-create"><span>ابدأ ليلة جديدة</span><span class="button-arrow">←</span></button>
+          <button class="button button-quiet" id="hero-join">عندي رمز غرفة <span>↙</span></button>
+          <button class="button button-quiet" id="hero-ai">أنشئ جلسة مع لاعب ذكي <span>✦</span></button>
+        </div>
+        <div class="hero-meta"><span><span class="meta-icon">♙</span> ٤–١٢ لاعب</span><i></i><span><span class="meta-icon">◷</span> ١٠–٢٠ دقيقة</span><i></i><span><span class="meta-icon">⌖</span> العب من أي مكان</span></div>
+      </div>
+      <div class="hero-art" aria-label="أجواء مدينة غامضة في الليل">
+        <div class="art-halo"></div><div class="moon"></div>
+        <div class="city city-back"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="city city-front"><span></span><span></span><span></span><span></span></div>
+        <div class="silhouette"><div class="hat"></div><div class="head"></div><div class="coat"></div></div>
+        <div class="art-label"><span class="art-line"></span><span>الليلة، الحقيقة لها وجهان</span></div>
+        <div class="art-stamp"><span>مدينة</span><b>●</b><span>مجهولة</span></div>
+      </div>
+      <div class="hero-bottom"><span>الفصل الأول · شارع الغياب</span><span>٠١ / ٠٣</span></div>
+    </section>
+
+    <section id="setup" class="setup-section" hidden>
+      <div class="section-heading"><div><div class="eyebrow eyebrow-start"><span class="eyebrow-line"></span> قبل أن يحلّ الليل</div><h2 id="setup-title">جهّز <em>غرفتك.</em></h2></div><button class="icon-button" id="setup-close" aria-label="العودة">✕</button></div>
+      <div class="setup-card">
+        <label class="input-label" for="player-name">اسمك في المدينة</label>
+        <input id="player-name" class="text-input" maxlength="18" placeholder="كيف يناديك أصدقاؤك؟" autocomplete="nickname">
+        <div id="create-options">
+          <label class="input-label" for="player-limit">حجم المجموعة <span class="label-hint">٤ لاعبين على الأقل</span></label>
+          <div class="select-wrap"><select id="player-limit"><option value="6">٦ لاعبين — جلسة سريعة</option><option value="8" selected>٨ لاعبين — العدد المثالي</option><option value="10">١٠ لاعبين — شكوك أكثر</option><option value="12">١٢ لاعبًا — مدينة كاملة</option></select><span>⌄</span></div>
+        </div>
+        <div id="join-options" hidden><label class="input-label" for="room-code">رمز الغرفة</label><input id="room-code" class="text-input code-input" maxlength="5" placeholder="مثال: N8K2P" autocomplete="off" autocapitalize="characters"></div>
+        <button class="button button-gold button-full" id="setup-submit"><span id="submit-label">أنشئ الغرفة</span><span class="button-arrow">←</span></button>
+        <p class="privacy-note"><span>♢</span> جلسة واحدة لأصدقائك والذكاء الاصطناعي. لن تبدأ قبل أن تكونوا مستعدين.</p>
+      </div>
+    </section>
+
+    <section id="room" class="room-section" hidden>
+      <header class="room-top">
+        <div class="room-paper-heading">
+          <div class="eyebrow eyebrow-start"><span class="eyebrow-line"></span><span id="room-status-label">الطبعة الحيّة · قيد الاستعداد</span></div>
+          <h2>صَحيفة <em>المدينة</em></h2>
+          <p>حين يهدأ الليل، تبدأ الحقيقة بالكلام.</p>
+        </div>
+        <div class="room-actions"><button id="share-room" class="button button-gold" type="button"><span>رمز الدعوة</span><strong id="room-code-display">—</strong><span class="button-arrow">↗</span></button><button id="leave-room" class="button button-outline" type="button">مغادرة <span>↗</span></button></div>
+      </header>
+      <div class="room-layout">
+        <aside class="players-card">
+          <div class="card-heading"><div><span class="card-kicker">سجِلّ السكان</span><h3>وجوه المدينة</h3></div><div class="player-count"><span id="player-count">٠</span><span class="count-divider">/</span><span id="max-count">٨</span></div></div>
+          <div id="players-list" class="players-list"></div>
+          <article id="role-card" class="role-card" hidden></article>
+          <div class="host-controls"><p id="lobby-hint">بانتظار انضمام أصدقائك إلى الغرفة...</p><button id="add-ai" class="button button-outline button-full" type="button" hidden>✦ أضف لاعبًا ذكيًا</button><button id="start-game" class="button button-gold button-full" type="button" hidden><span>افتح ملف القضية</span><span class="button-arrow">←</span></button></div>
+        </aside>
+        <section class="play-card" aria-label="أحداث المدينة">
+          <div class="newspaper-masthead"><span class="masthead-mark">م</span><div><span class="masthead-kicker">صوتٌ يصل إلى آخر الليل</span><h3>المدينة <b>تتكلّم</b></h3></div><span class="masthead-dateline">النسخة <span id="paper-edition">٠١</span><br><b>كلّ الأسرار منشورة… إلا الحقيقة</b></span></div>
+          <div class="paper-rule"><span>صحيفة المدينة اليومية</span><span id="round-label">طبعة ما قبل الليل</span></div>
+          <div id="phase-scene" class="phase-scene night" aria-live="polite">
+            <span class="scene-moon" aria-hidden="true"></span><span class="scene-sun" aria-hidden="true"></span><span class="scene-cloud scene-cloud-one" aria-hidden="true"></span><span class="scene-cloud scene-cloud-two" aria-hidden="true"></span>
+            <div class="scene-skyline" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="scene-ground" aria-hidden="true"></div>
+            <div class="scene-print"><span id="phase-badge" class="phase-badge">الردهة</span><span class="scene-edition-label">ملف المدينة · السجل السري</span></div>
+            <div class="scene-copy"><span class="scene-eyebrow" id="scene-eyebrow">الطبعة الأولى · قبل منتصف الليل</span><h1 id="game-title">المدينة تنتظر حكايتها.</h1><p id="game-description">شارك رمز الدعوة. أضف أصدقاءك أو خصمًا ذكيًا إلى الغرفة نفسها.</p></div>
+            <div class="scene-caption"><span>الأحداث تتغير مع نبض المدينة</span><span class="scene-live-dot"></span></div>
+          </div>
+          <div class="breaking-paper"><div class="breaking-kicker"><span class="breaking-icon">✦</span><div><span class="card-kicker">آخر الأخبار</span><h4 id="bulletin-title">الأبواب مفتوحة للسكان</h4></div><time id="bulletin-time">الطبعة ١</time></div><p id="bulletin-text">ادعُ أصحابك وأكمل عدد اللاعبين بذكاء اصطناعي. القرار النهائي للمضيف.</p></div>
+          <div id="action-hint" class="action-hint" hidden></div>
+          <div id="vote-area" class="vote-area" hidden></div>
+          <div class="chat-wrap"><div class="chat-heading"><span id="chat-title">رسائل المدينة</span><span id="chat-subtitle">رسائل الغرفة</span></div><div id="chat-messages" class="chat-messages" aria-live="polite"></div><form id="chat-form" class="chat-form"><input id="chat-input" maxlength="280" placeholder="اكتب رسالة..." autocomplete="off" aria-label="اكتب رسالة"><button aria-label="إرسال الرسالة">←</button></form></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="how" class="how-section"><div class="eyebrow"><span class="eyebrow-line"></span> قواعد المدينة <span class="eyebrow-line"></span></div><h2>ثلاث ليالٍ.<br>وحقيقة <em>واحدة.</em></h2><div class="steps"><article class="step"><span class="step-number">٠١</span><div class="step-icon">♙</div><h3>اعرف وجهك</h3><p>مافيا، طبيب، محقق، وأهل مدينة. دور سري مختلف لكل لاعب.</p></article><article class="step"><span class="step-number">٠٢</span><div class="step-icon">☾</div><h3>لكل دور مهمة</h3><p>المافيا تختار ضحية، الطبيب يحميها، والمحقق يبحث عن الحقيقة.</p></article><article class="step"><span class="step-number">٠٣</span><div class="step-icon">♢</div><h3>حين تشرق الشمس</h3><p>ناقشوا وصوّتوا معًا. يمكن للذكاء الاصطناعي إكمال الأماكن الشاغرة.</p></article></div></section>
+  </main>
+  <footer class="footer"><a class="brand footer-brand" href="/"><span class="brand-mark">م</span><span>لَيْلَة <b>المافيا</b></span></a><span>مدينة صغيرة، أسرار كبيرة.</span><span>صُنعت لتُلعَب معًا <span class="footer-heart">✦</span></span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
