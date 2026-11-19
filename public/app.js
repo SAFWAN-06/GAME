@@ -1,5 +1,12 @@
 (() => {
   const $ = id => document.getElementById(id);
+  // بعض المتصفحات تعرض الأرقام لاتينية مع اللغة العربية؛ نوحّدها إلى الأرقام العربية في كل الواجهة.
+  const arabicDigits = value => String(value).replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+  const nativeLocaleString = Number.prototype.toLocaleString;
+  Number.prototype.toLocaleString = function (locales, options) {
+    const text = nativeLocaleString.call(this, locales, options);
+    return typeof locales === 'string' && locales.startsWith('ar') ? arabicDigits(text) : text;
+  };
   const sections = { home: $('home'), setup: $('setup'), room: $('room') };
   const modalIds = ['setup-modal', 'invite-modal', 'role-modal', 'action-modal', 'ai-modal', 'start-modal', 'leave-modal', 'read-modal', 'end-modal'];
   let socket = null, state = null, setupMode = 'create', toastTimer, pendingAction = null;
@@ -216,13 +223,14 @@
     const badge = $('phase-badge'), area = $('vote-area'), hint = $('action-hint'), scene = $('phase-scene'); area.hidden = true; hint.hidden = true;
     scene.className = `phase-scene ${state.phase === 'ended' ? state.winner === 'town' ? 'victory-town' : 'victory-mafia' : state.phase === 'lobby' ? 'night' : state.phase} weather-${state.settings.weather}`;
     $('paper-edition').textContent = String(Math.max(1, state.round)).padStart(2, '0').replace(/[0-9]/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+    $('paper-weather').textContent = `${({ clear: 'صحو', rain: 'ماطر', fog: 'ضبابي' })[state.settings.weather] || 'صحو'}${state.phase === 'lobby' ? '' : state.phase === 'ended' ? ' · ملفّ مغلق' : night ? ' · ليل' : ' · نهار'}`;
     $('scene-eyebrow').textContent = state.phase === 'lobby' ? 'الطبعة الأولى · قبل منتصف الليل' : state.phase === 'ended' ? 'الطبعة الأخيرة · الحقيقة ظهرت' : night ? `الجولة ${state.round.toLocaleString('ar')} · المدينة بعد منتصف الليل` : `الجولة ${state.round.toLocaleString('ar')} · شمس جديدة فوق المدينة`;
     const headline = [...state.messages].reverse().find(m => m.system)?.text || 'شارك رمز الدعوة. أضف أصدقاءك إلى الغرفة نفسها.';
     $('bulletin-time').textContent = `الجولة ${state.round.toLocaleString('ar')}`; $('bulletin-text').textContent = headline;
     if (state.phase === 'lobby') { badge.textContent = 'الردهة · مباشر'; $('round-label').textContent = 'طبعة ما قبل الليل'; $('game-title').textContent = 'المدينة تنتظر حكايتها.'; $('game-description').textContent = `التشكيلة: ${{ classic: 'الكلاسيكية', storm: 'العاصفة', chaos: 'الفوضى' }[state.settings.mode]} · الطقس ${state.settings.weather === 'rain' ? 'ممطر' : state.settings.weather === 'fog' ? 'ضبابي' : 'صحو'}.`; $('chat-title').textContent = 'رسائل المدينة'; $('chat-subtitle').textContent = 'رسائل الغرفة'; $('bulletin-title').textContent = 'الأبواب مفتوحة للسكان'; }
-    else if (state.phase === 'ended') { badge.textContent = 'كُشفت الأسرار · نهاية الجولة'; $('round-label').textContent = `ملف القضية · الجولة ${state.round.toLocaleString('ar')}`; $('game-title').textContent = state.winner === 'town' ? 'العدالة عادت إلى المدينة.' : state.winner === 'jester' ? 'المهرّج خدع الجميع!' : state.winner === 'serialkiller' ? 'المدينة سقطت بيد القاتل.' : 'سقطت المدينة في يد المافيا.'; $('game-description').textContent = 'انتهى التحقيق. راجعوا سجل السكان وهويات اللاعبين.'; $('chat-title').textContent = 'رسائل ما بعد النهاية'; $('chat-subtitle').textContent = 'الجميع مدعو للنقاش'; $('bulletin-title').textContent = 'كُشفت هويات المدينة'; }
+    else if (state.phase === 'ended') { badge.textContent = 'كُشفت الأسرار · نهاية الجولة'; $('round-label').textContent = `الطبعة الأخيرة · الجولة ${state.round.toLocaleString('ar')}`; $('game-title').textContent = state.winner === 'town' ? 'العدالة عادت إلى المدينة.' : state.winner === 'jester' ? 'المهرّج خدع الجميع!' : state.winner === 'serialkiller' ? 'المدينة سقطت بيد القاتل.' : 'سقطت المدينة في يد المافيا.'; $('game-description').textContent = 'انتهى التحقيق. راجعوا سجل السكان وهويات اللاعبين.'; $('chat-title').textContent = 'رسائل ما بعد النهاية'; $('chat-subtitle').textContent = 'الجميع مدعو للنقاش'; $('bulletin-title').textContent = 'كُشفت هويات المدينة'; }
     else {
-      badge.textContent = night ? 'ليل · خيارات سرّية' : 'نهار · تحقيق عام'; $('round-label').textContent = `ملف القضية · الجولة ${state.round.toLocaleString('ar')}`;
+      badge.textContent = night ? 'ليل · خيارات سرّية' : 'نهار · تحقيق عام'; $('round-label').textContent = `${night ? 'الطبعة الليلية' : 'الطبعة الصباحية'} · الجولة ${state.round.toLocaleString('ar')}`;
       $('bulletin-title').textContent = night ? (meRole.team === 'mafia' ? 'اجتماع المافيا · قرار في الظلام.' : `${meRole.name} · مهمتك السرّية.`) : 'خبر عاجل · شمس على وجوه المدينة.';
       $('game-title').textContent = dead ? 'أصبحتَ من الظلال.' : night ? meRole.action ? `المهمة السرّية · ${meRole.name}` : 'شوارع خالية... ننتظر الفجر.' : 'خبر عاجل · وجوه تحت التحقيق.';
       $('game-description').textContent = dead ? 'تتابع مجريات الجولة بصفتك قارئًا للأحداث.' : night ? meRole.description : 'اقرأ سجل السكان. ناقش الأدلة وصوّت لاختيار المشتبه به.';

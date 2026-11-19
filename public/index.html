@@ -9,7 +9,7 @@
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -83,7 +83,12 @@
           <div class="host-controls"><p id="lobby-hint">بانتظار انضمام أصدقائك إلى الغرفة...</p><button id="add-ai" class="button button-outline button-full" type="button" hidden>✦ أضف لاعبًا ذكيًا</button><button id="start-game" class="button button-gold button-full" type="button" hidden><span>افتح ملف القضية</span><span class="button-arrow">←</span></button></div>
         </aside>
         <section class="play-card" aria-label="أحداث المدينة">
-          <div class="newspaper-masthead"><span class="masthead-mark">م</span><div><span class="masthead-kicker">صوتٌ يصل إلى آخر الليل</span><h3>المدينة <b>تتكلّم</b></h3></div><span class="masthead-dateline">النسخة <span id="paper-edition">٠١</span><br><b>كلّ الأسرار منشورة… إلا الحقيقة</b></span></div>
+          <div class="newspaper-masthead">
+            <div class="masthead-strap"><span class="masthead-strap-cell"><span class="masthead-mark">م</span> صحيفة المدينة · تصدر كل ليلة</span><span class="masthead-strap-cell masthead-date">النسخة <span id="paper-edition">٠١</span> · الطبعة الليلية</span><span class="masthead-strap-cell">الطقس <span id="paper-weather">صحو</span></span></div>
+            <h3 class="masthead-wordmark">المدينة <b>تتكلّم</b></h3>
+            <div class="masthead-rule"><span>❖</span></div>
+            <p class="masthead-tagline">كلّ الأسرار منشورة… إلا الحقيقة</p>
+          </div>
           <div class="paper-rule"><span>صحيفة المدينة اليومية</span><span id="round-label">طبعة ما قبل الليل</span></div>
           <div id="phase-scene" class="phase-scene night" aria-live="polite">
             <span class="scene-moon" aria-hidden="true"></span><span class="scene-sun" aria-hidden="true"></span><span class="scene-cloud scene-cloud-one" aria-hidden="true"></span><span class="scene-cloud scene-cloud-two" aria-hidden="true"></span>
@@ -94,7 +99,7 @@
             <div class="scene-rain" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
           <div class="scene-caption"><span>الأحداث تتغير مع نبض المدينة</span><span class="scene-live-dot"></span></div>
           </div>
-          <div class="breaking-paper"><div class="breaking-kicker"><span class="breaking-icon">✦</span><div><span class="card-kicker">آخر الأخبار</span><h4 id="bulletin-title">الأبواب مفتوحة للسكان</h4></div><time id="bulletin-time">الطبعة ١</time></div><p id="bulletin-text">ادعُ أصحابك وأكمل عدد اللاعبين بذكاء اصطناعي. القرار النهائي للمضيف.</p><button id="read-bulletin" class="read-bulletin" type="button"><span>▸</span> اقرأ الخبر بصوتٍ مسموع</button></div>
+          <div class="breaking-paper"><span class="breaking-flag">عاجل</span><div class="breaking-kicker"><div><span class="card-kicker">خبر الساعة · من مكتب المدينة</span><h4 id="bulletin-title">الأبواب مفتوحة للسكان</h4></div><time id="bulletin-time">الطبعة ١</time></div><p id="bulletin-text">ادعُ أصحابك وأكمل عدد اللاعبين بذكاء اصطناعي. القرار النهائي للمضيف.</p><div class="breaking-foot"><span class="byline"><b>محرّر المدينة</b> · تحرير ليلي</span><button id="read-bulletin" class="read-bulletin" type="button"><span>▸</span> اقرأ الخبر بصوتٍ مسموع</button></div></div>
           <div id="action-hint" class="action-hint" hidden></div>
           <div id="vote-area" class="vote-area" hidden></div>
           <section id="chronicle-card" class="chronicle-card" hidden aria-label="سجل أحداث المدينة">
@@ -102,7 +107,7 @@
             <ol id="chronicle-list" class="chronicle-list"></ol>
             <div class="chronicle-foot"><button id="chronicle-read" class="read-bulletin" type="button"><span>▸</span> اقرأ السجل بصوتٍ مسموع</button></div>
           </section>
-          <div class="chat-wrap"><div class="chat-heading"><span id="chat-title">رسائل المدينة</span><span id="chat-subtitle">رسائل الغرفة</span></div><div id="chat-messages" class="chat-messages" aria-live="polite"></div><form id="chat-form" class="chat-form"><input id="chat-input" maxlength="280" placeholder="اكتب رسالة..." autocomplete="off" aria-label="اكتب رسالة"><button aria-label="إرسال الرسالة">←</button></form></div>
+          <div class="chat-wrap"><div class="chat-heading"><span class="paper-label" id="chat-title">رسائل المدينة</span><span id="chat-subtitle">رسائل الغرفة</span></div><div id="chat-messages" class="chat-messages" aria-live="polite"></div><form id="chat-form" class="chat-form"><input id="chat-input" maxlength="280" placeholder="اكتب رسالة..." autocomplete="off" aria-label="اكتب رسالة"><button aria-label="إرسال الرسالة">←</button></form></div>
         </section>
       </div>
     </section>

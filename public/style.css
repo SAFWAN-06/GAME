@@ -157,3 +157,90 @@ body:after{position:fixed;inset:0;z-index:9;pointer-events:none;content:'';backg
 .vote-button{transition:transform .18s ease,box-shadow .18s ease}
 .vote-button:hover{transform:translateY(-1px);box-shadow:0 6px 16px #00000038}
 @media(prefers-reduced-motion:reduce){.step,.vote-button{transition:none}.button-gold:after{display:none}}
+
+/* ============================================================
+   الجريدة · تصميم تحريري احترافي
+   ============================================================ */
+.room-layout .play-card{
+  --ink:#221c14;--ink-soft:#574c3c;--ink-faint:#877961;--rule:#c2af8d;--rule-strong:#6d5a3d;--paper:#ece3d1;--paper-hi:#f9f3e5;--stamp:#93382c;
+  --press:'Amiri','Playfair Display',Georgia,serif;
+  position:relative;border:1px solid #b4a17f;border-radius:2px;padding:clamp(16px,2.4vw,30px) clamp(15px,2.3vw,32px) clamp(14px,2vw,24px);color:var(--ink);
+  background:
+    radial-gradient(115% 70% at 50% -12%,#fffdf6 0%,transparent 58%),
+    repeating-linear-gradient(90deg,#00000004 0 1px,transparent 1px 3px),
+    linear-gradient(180deg,#efe6d5,#e6dcc7 62%,#e3d8c2);
+  box-shadow:0 26px 66px #00000042,0 1px 0 #ffffffb0 inset,0 0 0 1px #ffffff55 inset;
+}
+.room-layout .play-card:before{position:absolute;inset:7px;z-index:0;content:"";border:1px solid #b9a98659;pointer-events:none}
+.room-layout .play-card:after{position:absolute;inset:0;z-index:0;content:"";pointer-events:none;background:linear-gradient(90deg,transparent 49.55%,#0000000a 50%,transparent 50.45%),radial-gradient(140px 40px at 50% 0,#0000000a,transparent 70%)}
+.room-layout .play-card>*{position:relative;z-index:1}
+
+.play-card .newspaper-masthead{display:block;padding:2px 0 0;border:0;text-align:center}
+.play-card .masthead-strap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 2px 10px;border-bottom:1px solid var(--rule);color:var(--ink-faint);font-size:8.5px;letter-spacing:.06em}
+.play-card .masthead-strap-cell{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.play-card .masthead-strap-cell.masthead-date{color:var(--ink-soft)}
+.play-card .masthead-mark{display:grid;place-items:center;width:21px;height:21px;border:1px solid var(--rule-strong);border-radius:1px;color:var(--stamp);font:13px/1 var(--serif);transform:rotate(-3deg)}
+.play-card .newspaper-masthead h3{float:none;margin:0;padding:13px 0 2px;color:var(--ink);font:700 clamp(31px,5.6vw,47px)/1.02 var(--press);letter-spacing:0;text-shadow:0 1px 0 #ffffffa6}
+.play-card .newspaper-masthead h3 b{color:#7d2f28;font-weight:700}
+.play-card .masthead-rule{display:flex;align-items:center;gap:12px;padding:0;color:var(--rule-strong);font-size:9px}
+.play-card .masthead-rule:before,.play-card .masthead-rule:after{flex:1;height:3px;content:"";border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule)}
+.play-card .masthead-tagline{margin:7px 0 0;color:var(--ink-soft);font:400 12.5px/1.6 var(--press);letter-spacing:.02em}
+.play-card .masthead-tagline:before{content:"«";color:var(--stamp);margin-inline-end:2px}
+.play-card .masthead-tagline:after{content:"»";color:var(--stamp);margin-inline-start:2px}
+
+.play-card .paper-rule{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;padding:7px 2px;border-top:1px solid var(--rule-strong);border-bottom:3px double var(--rule-strong);color:var(--ink-soft);font-size:9px;letter-spacing:.07em}
+.play-card .paper-rule>span:first-child{color:var(--ink);font-weight:700;letter-spacing:.1em}
+.play-card .paper-rule>span:last-child{color:var(--stamp);font-style:italic;letter-spacing:.04em}
+
+.play-card .phase-scene{margin:13px 0 0;border:6px solid #fbf6ea;border-radius:1px;outline:1px solid #c9b894;box-shadow:0 2px 0 #ffffff7a,0 12px 28px #0000002e}
+.play-card .scene-caption{padding-top:6px;border-top:1px solid #ffffff2b}
+
+.play-card .breaking-paper{position:relative;margin-top:20px;padding:20px 18px 14px;border:1px solid #c8b692;border-top:3px solid var(--stamp);border-radius:2px;background:linear-gradient(180deg,#fdf8ee,#f4eddd);color:var(--ink);box-shadow:0 1px 0 #ffffffb8 inset,0 10px 26px #0000001f}
+.play-card .breaking-flag{position:absolute;top:-13px;inset-inline-start:16px;padding:6px 11px;background:var(--stamp);color:#fdf7e8;font:700 9px/1 var(--sans);letter-spacing:.16em;box-shadow:0 3px 0 #00000018}
+.play-card .breaking-kicker{display:flex;align-items:flex-start;gap:12px;padding-bottom:10px;border-bottom:1px solid #d9c9ab}
+.play-card .breaking-kicker>div{flex:1;min-width:0}
+.play-card .breaking-kicker .card-kicker{color:var(--stamp);font-size:8.5px;letter-spacing:.12em}
+.play-card .breaking-kicker h4{margin:4px 0 0;color:#1c1710;font:700 clamp(19px,2.7vw,25px)/1.26 var(--press);letter-spacing:0}
+.play-card .breaking-kicker time{align-self:flex-start;padding:3px 7px;border:1px solid #cbb894;border-radius:2px;color:var(--ink-faint);font-size:8.5px;white-space:nowrap}
+.play-card .breaking-paper>p{margin:11px 0 0;color:#4e4333;font:400 13px/1.95 var(--sans);text-align:justify;text-align-last:start}
+.play-card .breaking-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:9px;border-top:1px solid #d9c9ab}
+.play-card .byline{color:var(--ink-faint);font-size:9px;letter-spacing:.06em}
+.play-card .byline b{color:var(--ink-soft);font-weight:700;letter-spacing:.08em}
+.play-card .read-bulletin{margin:0;padding:5px 10px;border:1px solid #c3b090;border-radius:2px;background:#fffaf0;color:#77572f;font:500 9.5px/1 var(--sans);letter-spacing:.02em;transition:background .18s,color .18s,border-color .18s}
+.play-card .read-bulletin:hover{background:#f0e2c5;color:#3a2c1b;border-color:#a1865c}
+.play-card .read-bulletin span{font-size:8px;color:var(--stamp)}
+
+.play-card>.action-hint{padding:9px 12px;border:1px solid #d3c3a4;border-inline-start:3px solid var(--stamp);border-radius:2px;background:#f7f0e2;color:#5d4a2c;font-size:10.5px}
+.play-card>.vote-area{gap:8px;margin:13px 0 15px}
+.play-card .vote-button{padding:7px 14px;border:1px dashed #b6a179;border-radius:2px;background:#fbf5e8;color:#372e21;font:400 13px/1.4 var(--press);box-shadow:0 1px 0 #ffffffb8 inset;transition:background .18s,border-color .18s,color .18s,transform .18s}
+.play-card .vote-button:hover{background:#fffdf5;border-color:var(--stamp);color:#7d2f28;transform:translateY(-1px)}
+.play-card .vote-button.selected{background:#f6e6c7;border-style:solid;border-color:#8b6a3c;color:#6d4f24}
+
+.play-card .chat-wrap{margin-top:18px;padding-top:13px;border-top:3px double var(--rule-strong)}
+.play-card .chat-heading{align-items:baseline}
+.play-card .paper-label{color:var(--ink);font-size:9.5px;font-weight:700;letter-spacing:.16em}
+.play-card .paper-label:before{content:"\2756";color:var(--stamp);margin-inline-end:6px;font-size:10px}
+.play-card .chat-heading span:last-child{color:var(--ink-faint);font-size:8.5px;letter-spacing:.05em}
+.play-card .chat-messages{height:112px;padding:2px 2px 8px;scrollbar-color:#b09a72 transparent}
+.play-card .chat-message{padding:5px 0;border-bottom:1px dotted #cbbaa0;color:#4d4231;font-size:11px;line-height:1.75}
+.play-card .chat-message b{display:inline-block;margin-inline-end:5px;color:#7d2f28;font:700 12px/1.4 var(--press)}
+.play-card .chat-message.system{border-bottom:0;color:#8a7450;font-style:italic}
+.play-card .chat-form{height:38px;border:0;border-bottom:1px solid #b6a179;border-radius:0;background:transparent}
+.play-card .chat-form input{padding:0 2px;color:#2e261c;font-size:11px}
+.play-card .chat-form input::placeholder{color:#95866e}
+.play-card .chat-form button{width:34px;border:0;border-inline-start:1px solid #cbb89a;color:var(--stamp);font-size:15px}
+
+@media(max-width:700px){
+  .play-card .masthead-strap{flex-wrap:wrap;justify-content:center;gap:4px 12px;font-size:8px}
+  .play-card .masthead-strap-cell:nth-child(2){order:3}
+  .play-card .breaking-kicker{flex-direction:column;gap:6px}
+  .play-card .breaking-kicker time{align-self:flex-start}
+  .play-card .breaking-paper{padding:18px 14px 12px}
+  .play-card .breaking-foot{flex-wrap:wrap;justify-content:flex-start}
+}
+@media(max-width:430px){
+  .play-card .newspaper-masthead h3{font-size:30px;padding-top:11px}
+  .play-card .masthead-tagline{font-size:11px}
+  .play-card .breaking-paper>p{font-size:12px;line-height:1.85}
+  .play-card .phase-scene{border-width:4px}
+}

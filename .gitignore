@@ -3,4 +3,5 @@ node_modules/
 mafia-server.log
 verify-end.cjs
 check-css.cjs
+dump-css.cjs
 _preview.html
