@@ -31,6 +31,7 @@
           <button class="button button-quiet" id="hero-join">عندي رمز غرفة <span>↙</span></button>
           <button class="button button-quiet" id="hero-ai">أنشئ جلسة مع لاعب ذكي <span>✦</span></button>
         </div>
+        <div class="sound-prefs"><button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="false"><span class="sound-toggle-icon">♪</span><span>الأصوات</span><span class="sound-toggle-state">مغلقة</span></button><span class="sound-note">مؤثرات المدينة اختيارية</span></div>
         <div class="hero-meta"><span><span class="meta-icon">♙</span> ٤–١٢ لاعب</span><i></i><span><span class="meta-icon">◷</span> ١٠–٢٠ دقيقة</span><i></i><span><span class="meta-icon">⌖</span> العب من أي مكان</span></div>
       </div>
       <div class="hero-art" aria-label="أجواء مدينة غامضة في الليل">
@@ -44,7 +45,8 @@
       <div class="hero-bottom"><span>الفصل الأول · شارع الغياب</span><span>٠١ / ٠٣</span></div>
     </section>
 
-    <section id="setup" class="setup-section" hidden>
+    <dialog id="setup-modal" class="modal-window setup-modal" aria-labelledby="setup-title">
+    <section id="setup" class="setup-section">
       <div class="section-heading"><div><div class="eyebrow eyebrow-start"><span class="eyebrow-line"></span> قبل أن يحلّ الليل</div><h2 id="setup-title">جهّز <em>غرفتك.</em></h2></div><button class="icon-button" id="setup-close" aria-label="العودة">✕</button></div>
       <div class="setup-card">
         <label class="input-label" for="player-name">اسمك في المدينة</label>
@@ -52,12 +54,17 @@
         <div id="create-options">
           <label class="input-label" for="player-limit">حجم المجموعة <span class="label-hint">٤ لاعبين على الأقل</span></label>
           <div class="select-wrap"><select id="player-limit"><option value="6">٦ لاعبين — جلسة سريعة</option><option value="8" selected>٨ لاعبين — العدد المثالي</option><option value="10">١٠ لاعبين — شكوك أكثر</option><option value="12">١٢ لاعبًا — مدينة كاملة</option></select><span>⌄</span></div>
+          <label class="input-label" for="game-mode">تشكيلة الأدوار</label>
+          <div class="select-wrap"><select id="game-mode"><option value="classic">الصحيفة الكلاسيكية · متوازنة</option><option value="storm">ليلة العاصفة · حارس وقنّاص ووسيط</option><option value="chaos">مدينة الفوضى · مهرّج وقاتل متسلسل</option></select><span>⌄</span></div>
+          <label class="input-label" for="weather-mode">حالة الطقس</label>
+          <div class="select-wrap"><select id="weather-mode"><option value="clear">سماء صافية · أجواء هادئة</option><option value="rain">مطر · مدينة مبتلّة ورعد</option><option value="fog">ضباب · رؤية شحيحة</option></select><span>⌄</span></div>
         </div>
         <div id="join-options" hidden><label class="input-label" for="room-code">رمز الغرفة</label><input id="room-code" class="text-input code-input" maxlength="5" placeholder="مثال: N8K2P" autocomplete="off" autocapitalize="characters"></div>
         <button class="button button-gold button-full" id="setup-submit"><span id="submit-label">أنشئ الغرفة</span><span class="button-arrow">←</span></button>
         <p class="privacy-note"><span>♢</span> جلسة واحدة لأصدقائك والذكاء الاصطناعي. لن تبدأ قبل أن تكونوا مستعدين.</p>
       </div>
     </section>
+    </dialog>
 
     <section id="room" class="room-section" hidden>
       <header class="room-top">
@@ -66,7 +73,7 @@
           <h2>صَحيفة <em>المدينة</em></h2>
           <p>حين يهدأ الليل، تبدأ الحقيقة بالكلام.</p>
         </div>
-        <div class="room-actions"><button id="share-room" class="button button-gold" type="button"><span>رمز الدعوة</span><strong id="room-code-display">—</strong><span class="button-arrow">↗</span></button><button id="leave-room" class="button button-outline" type="button">مغادرة <span>↗</span></button></div>
+        <div class="room-actions"><button id="share-room" class="button button-gold" type="button"><span>رمز الدعوة</span><strong id="room-code-display">—</strong><span class="button-arrow">↗</span></button><button id="end-review" class="button button-outline" type="button" hidden>ملف النهاية <span>✧</span></button><button id="leave-room" class="button button-outline" type="button">مغادرة <span>↗</span></button></div>
       </header>
       <div class="room-layout">
         <aside class="players-card">
@@ -84,11 +91,17 @@
             <div class="scene-ground" aria-hidden="true"></div>
             <div class="scene-print"><span id="phase-badge" class="phase-badge">الردهة</span><span class="scene-edition-label">ملف المدينة · السجل السري</span></div>
             <div class="scene-copy"><span class="scene-eyebrow" id="scene-eyebrow">الطبعة الأولى · قبل منتصف الليل</span><h1 id="game-title">المدينة تنتظر حكايتها.</h1><p id="game-description">شارك رمز الدعوة. أضف أصدقاءك أو خصمًا ذكيًا إلى الغرفة نفسها.</p></div>
-            <div class="scene-caption"><span>الأحداث تتغير مع نبض المدينة</span><span class="scene-live-dot"></span></div>
+            <div class="scene-rain" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="scene-caption"><span>الأحداث تتغير مع نبض المدينة</span><span class="scene-live-dot"></span></div>
           </div>
-          <div class="breaking-paper"><div class="breaking-kicker"><span class="breaking-icon">✦</span><div><span class="card-kicker">آخر الأخبار</span><h4 id="bulletin-title">الأبواب مفتوحة للسكان</h4></div><time id="bulletin-time">الطبعة ١</time></div><p id="bulletin-text">ادعُ أصحابك وأكمل عدد اللاعبين بذكاء اصطناعي. القرار النهائي للمضيف.</p></div>
+          <div class="breaking-paper"><div class="breaking-kicker"><span class="breaking-icon">✦</span><div><span class="card-kicker">آخر الأخبار</span><h4 id="bulletin-title">الأبواب مفتوحة للسكان</h4></div><time id="bulletin-time">الطبعة ١</time></div><p id="bulletin-text">ادعُ أصحابك وأكمل عدد اللاعبين بذكاء اصطناعي. القرار النهائي للمضيف.</p><button id="read-bulletin" class="read-bulletin" type="button"><span>▸</span> اقرأ الخبر بصوتٍ مسموع</button></div>
           <div id="action-hint" class="action-hint" hidden></div>
           <div id="vote-area" class="vote-area" hidden></div>
+          <section id="chronicle-card" class="chronicle-card" hidden aria-label="سجل أحداث المدينة">
+            <div class="chronicle-head"><div><span class="card-kicker">سجلّ المدينة</span><h4>ماذا حدث حتى الآن</h4></div><span id="chronicle-count" class="chronicle-count">٠ وقائع</span></div>
+            <ol id="chronicle-list" class="chronicle-list"></ol>
+            <div class="chronicle-foot"><button id="chronicle-read" class="read-bulletin" type="button"><span>▸</span> اقرأ السجل بصوتٍ مسموع</button></div>
+          </section>
           <div class="chat-wrap"><div class="chat-heading"><span id="chat-title">رسائل المدينة</span><span id="chat-subtitle">رسائل الغرفة</span></div><div id="chat-messages" class="chat-messages" aria-live="polite"></div><form id="chat-form" class="chat-form"><input id="chat-input" maxlength="280" placeholder="اكتب رسالة..." autocomplete="off" aria-label="اكتب رسالة"><button aria-label="إرسال الرسالة">←</button></form></div>
         </section>
       </div>
@@ -97,6 +110,56 @@
     <section id="how" class="how-section"><div class="eyebrow"><span class="eyebrow-line"></span> قواعد المدينة <span class="eyebrow-line"></span></div><h2>ثلاث ليالٍ.<br>وحقيقة <em>واحدة.</em></h2><div class="steps"><article class="step"><span class="step-number">٠١</span><div class="step-icon">♙</div><h3>اعرف وجهك</h3><p>مافيا، طبيب، محقق، وأهل مدينة. دور سري مختلف لكل لاعب.</p></article><article class="step"><span class="step-number">٠٢</span><div class="step-icon">☾</div><h3>لكل دور مهمة</h3><p>المافيا تختار ضحية، الطبيب يحميها، والمحقق يبحث عن الحقيقة.</p></article><article class="step"><span class="step-number">٠٣</span><div class="step-icon">♢</div><h3>حين تشرق الشمس</h3><p>ناقشوا وصوّتوا معًا. يمكن للذكاء الاصطناعي إكمال الأماكن الشاغرة.</p></article></div></section>
   </main>
   <footer class="footer"><a class="brand footer-brand" href="/"><span class="brand-mark">م</span><span>لَيْلَة <b>المافيا</b></span></a><span>مدينة صغيرة، أسرار كبيرة.</span><span>صُنعت لتُلعَب معًا <span class="footer-heart">✦</span></span></footer>
+  <dialog id="invite-modal" class="modal-window prompt-modal" aria-labelledby="invite-title">
+    <button class="modal-close" type="button" data-close="invite-modal" aria-label="إغلاق">×</button>
+    <div class="modal-eyebrow">دعوة خاصة · مدينة واحدة</div><h2 id="invite-title">ادعُ <em>سكانك.</em></h2><p class="modal-description">شارك الرابط أو الرمز مع أصدقائك ليدخلوا الجلسة نفسها.</p>
+    <label class="input-label" for="invite-link">رابط الدخول</label><div class="invite-link-row"><input id="invite-link" class="text-input" readonly><button id="copy-invite" class="button button-gold" type="button">انسخ</button></div>
+    <div class="invite-code-panel"><span>رمز الغرفة</span><strong id="invite-code">—</strong></div>
+  </dialog>
+  <dialog id="role-modal" class="modal-window reveal-modal" aria-labelledby="reveal-title">
+    <button class="modal-close" type="button" data-close="role-modal" aria-label="إغلاق">×</button>
+    <div class="modal-eyebrow">جرى توزيع الأدوار · لا تكشف بطاقتك</div><h2 id="reveal-title">بطاقة <em>هويتك.</em></h2>
+    <p class="modal-description">هذه البطاقة لك وحدك. اقرأ مهمتك قبل دخول المدينة.</p><div id="dealt-card" class="dealt-card"></div>
+    <button id="reveal-confirm" class="button button-gold button-full" type="button">حفظت سري · ادخل المدينة <span class="button-arrow">←</span></button>
+  </dialog>
+  <dialog id="action-modal" class="modal-window prompt-modal" aria-labelledby="action-modal-title">
+    <button class="modal-close" type="button" data-close="action-modal" aria-label="إغلاق">×</button>
+    <div class="modal-eyebrow" id="action-modal-eyebrow">ملف القضية · اختيار سري</div><h2 id="action-modal-title">أكّد <em>اختيارك.</em></h2>
+    <p id="action-modal-description" class="modal-description"></p><div class="target-dossier"><span>الاختيار الحالي</span><strong id="action-target-name"></strong><span id="action-target-subtitle"></span></div>
+    <div class="modal-actions"><button class="button button-outline" type="button" data-close="action-modal">رجوع</button><button id="action-confirm" class="button button-gold" type="button">أكّد القرار <span class="button-arrow">←</span></button></div>
+  </dialog>
+  <dialog id="ai-modal" class="modal-window prompt-modal" aria-labelledby="ai-modal-title">
+    <button class="modal-close" type="button" data-close="ai-modal" aria-label="إغلاق">×</button>
+    <div class="modal-eyebrow">إضافة لاعب إلى هذه الجلسة</div><h2 id="ai-modal-title">عقل جديد في <em>المدينة.</em></h2>
+    <p class="modal-description">ينضم لاعب ذكي واحد إلى الغرفة نفسها الآن. تقدر تضيف المزيد قبل ما يبدأ المضيف الجولة.</p>
+    <div class="ai-profile"><span class="ai-profile-icon">✦</span><div><strong>سكان المدينة</strong><span>شخصية ذكية تصوّت وتشارك في أحداث الجولة</span></div></div>
+    <div class="modal-actions"><button class="button button-outline" type="button" data-close="ai-modal">إلغاء</button><button id="ai-confirm" class="button button-gold" type="button">أضف إلى الجلسة <span class="button-arrow">←</span></button></div>
+  </dialog>
+  <dialog id="start-modal" class="modal-window prompt-modal" aria-labelledby="start-modal-title">
+    <button class="modal-close" type="button" data-close="start-modal" aria-label="إغلاق">×</button>
+    <div class="modal-eyebrow">قبل توزيع الأوراق</div><h2 id="start-modal-title">ليبدأ <em>التحقيق.</em></h2>
+    <p class="modal-description">سيحصل كل لاعب على بطاقة هوية سرية. تأكدوا من وجود أربعة لاعبين على الأقل وأن الجميع مستعد.</p>
+    <div class="modal-actions"><button class="button button-outline" type="button" data-close="start-modal">انتظر قليلًا</button><button id="start-confirm" class="button button-gold" type="button">ابدأ ووزّع البطاقات <span class="button-arrow">←</span></button></div>
+  </dialog>
+  <dialog id="read-modal" class="modal-window prompt-modal" aria-labelledby="read-modal-title">
+    <button class="modal-close" type="button" data-close="read-modal" aria-label="إغلاق">×</button>
+    <div class="modal-eyebrow">من أرشيف صحيفة المدينة</div><h2 id="read-modal-title">خبر <em>الصباح.</em></h2><p id="read-modal-text" class="modal-description read-modal-text"></p>
+    <div class="reader-controls"><button id="read-aloud" class="button button-gold" type="button">اقرأ بصوتٍ مسموع <span>◖</span></button><button id="stop-reading" class="button button-outline" type="button">إيقاف القراءة</button></div>
+  </dialog>
+  <dialog id="leave-modal" class="modal-window prompt-modal" aria-labelledby="leave-modal-title">
+    <button class="modal-close" type="button" data-close="leave-modal" aria-label="إغلاق">×</button>
+    <div class="modal-eyebrow">مغادرة الجلسة</div><h2 id="leave-modal-title">الخروج من <em>المدينة؟</em></h2>
+    <p class="modal-description">ستنقطع جلستك الحالية، وقد تنتقل استضافة الغرفة إلى لاعب آخر.</p>
+    <div class="modal-actions"><button class="button button-outline" type="button" data-close="leave-modal">ابقَ في اللعبة</button><button id="leave-confirm" class="button button-danger" type="button">غادر الجلسة <span class="button-arrow">↗</span></button></div>
+  </dialog>
+  <dialog id="end-modal" class="modal-window end-modal" aria-labelledby="end-title">
+    <button class="modal-close" type="button" data-close="end-modal" aria-label="إغلاق">×</button>
+    <div class="end-banner" id="end-banner"><span class="end-seal" id="end-seal">♠</span><div class="end-banner-copy"><div class="modal-eyebrow" id="end-eyebrow">خاتمة الملف · كُشفت الأسرار</div><h2 id="end-title">انتهت الليلة.</h2><p id="end-subtitle" class="modal-description"></p></div></div>
+    <div class="end-stats" id="end-stats"></div>
+    <section class="end-section"><div class="end-section-head"><span class="card-kicker">كشف الهويات</span><h4>من كان مَن؟</h4></div><div id="end-roles" class="end-roles"></div></section>
+    <section class="end-section"><div class="end-section-head"><span class="card-kicker">ملخّص الوقائع</span><h4>كيف وصلنا إلى هنا</h4></div><ol id="end-story" class="end-story"></ol></section>
+    <div class="end-actions"><button id="end-copy" class="button button-outline" type="button">انسخ خلاصة اللعبة</button><button id="end-again" class="button button-gold" type="button" hidden>جولة جديدة <span class="button-arrow">←</span></button><button class="button button-quiet" type="button" data-close="end-modal">تصفّح المدينة</button></div>
+  </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="/app.js" defer></script>
 </body>

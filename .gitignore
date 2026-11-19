@@ -1,2 +1,6 @@
 node_modules/
 .env
+mafia-server.log
+verify-end.cjs
+check-css.cjs
+_preview.html
